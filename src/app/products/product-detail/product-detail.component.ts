@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 import { Product } from '../product.interface';
@@ -18,10 +18,12 @@ export class ProductDetailComponent implements OnInit {
   constructor(
     private favouriteService: FavouriteService,
     private productService: ProductService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private router: Router) { }
 
   newFavourite(product: Product) {
     this.favouriteService.addToFavourites(product);
+    this.router.navigateByUrl('/products');
   }
 
   ngOnInit(): void {

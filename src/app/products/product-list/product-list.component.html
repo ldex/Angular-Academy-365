@@ -10,7 +10,7 @@
 <!-- No Error -->
 <div *ngIf="!errorMessage">
 
-    <div>
+    <div class="right">
         {{ productsNb }} products |
 
         {favourites, plural,
@@ -18,6 +18,9 @@
         =1 {1 favourite}
         other {{{favourites}} favourites}
         }
+    </div>
+    <div>
+        <!-- Search: <input type="text" [formControl]="filter" placeholder="filter by name"> -->
     </div>
 
     <ng-template #loading>
