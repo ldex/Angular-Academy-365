@@ -2,57 +2,49 @@
     {{ title }}
 </h2>
 
-<!-- Error -->
-<div *ngIf="errorMessage" class="errorMessage">
-    {{ errorMessage }}
+<div class="right">
+    {{ productsNb }} products |
+
+    {favourites, plural,
+    =0 {no favourite}
+    =1 {1 favourite}
+    other {{{favourites}} favourites}
+    }
+</div>
+<div> 
+    <!-- Search: <input type="text" [formControl]="filter" placeholder="filter by name"> -->
+    &nbsp;
 </div>
 
-<!-- No Error -->
-<div *ngIf="!errorMessage">
+<ng-template #loading>
+    <h2 class="loading">Loading products</h2>
+</ng-template>
 
-    <div class="right">
-        {{ productsNb }} products |
+<ul class="products" *ngIf="products$ | async as products;else loading">
+    <li *ngFor="let product of products | slice:start:end"
+        (click)="onSelect(product)"
+        [class.discontinued]="product.discontinued"
+        [class.selected]="selectedProduct === product"
+        [title]="product | json">
+        <span class="name">{{ product.name | uppercase }}</span>
+        <span class="description">{{ product.description }}</span>
+        <span class="price">{{ product.price | currency:'CAD':'symbol-narrow':'.2' }}</span>
+    </li>
+</ul>
 
-        {favourites, plural,
-        =0 {no favourite}
-        =1 {1 favourite}
-        other {{{favourites}} favourites}
-        }
-    </div>
-    <div>
-        <!-- Search: <input type="text" [formControl]="filter" placeholder="filter by name"> -->
-    </div>
+<div class="right">
+    <button (click)="refresh()">Refresh List</button>&nbsp;
+    <a routerLink="insert">Add new product...</a>
+</div>
 
-    <ng-template #loading>
-        <h2 class="loading">Loading products</h2>
-    </ng-template>
-
-    <ul class="products" *ngIf="products$ | async as products;else loading">
-        <li *ngFor="let product of products | slice:start:end"
-            (click)="onSelect(product)"
-            [class.discontinued]="product.discontinued"
-            [class.selected]="selectedProduct === product"
-            [title]="product | json">
-            <span class="name">{{ product.name | uppercase }}</span>
-            <span class="description">{{ product.description }}</span>
-            <span class="price">{{ product.price | currency:'CAD':'symbol-narrow':'.2' }}</span>
-        </li>
-    </ul>
-
-    <div class="right">
-        <button (click)="refresh()">Refresh List</button>
-        <a routerLink="insert">Add new product...</a>
-    </div>
-
-    <div>
-        <button (click)="previousPage()"
-                [disabled]="start === 0">
-            < Previous Page
-        </button>
-        Page {{ currentPage }}
-        <button (click)="nextPage()"
-                [disabled]="productsNb <= end">
-            Next Page >
-        </button>
-    </div>
+<div>
+    <button (click)="previousPage()"
+            [disabled]="start === 0">
+        < Previous Page
+    </button>
+    Page {{ currentPage }}
+    <button (click)="nextPage()"
+            [disabled]="productsNb <= end">
+        Next Page >
+    </button>
 </div>

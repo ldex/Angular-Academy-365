@@ -66,12 +66,6 @@ export class ProductListComponent implements OnInit {
     .productService
     .products$
     .pipe(
-      tap(products => this.productsNb = products.length),
-      catchError(
-        error => {
-          this.errorMessage = error.message;
-          return EMPTY;
-        }
-      )
+      tap(products => this.productsNb = products.length)
     );
 }
