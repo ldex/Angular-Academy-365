@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { ProductService } from '../product.service';
+import { fromEvent } from 'rxjs';
+import { exhaustMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-insert',

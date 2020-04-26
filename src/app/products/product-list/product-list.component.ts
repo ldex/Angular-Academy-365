@@ -1,10 +1,12 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { Observable, EMPTY, combineLatest, Subscription } from 'rxjs';
+import { tap, catchError, startWith, count, flatMap, map, debounceTime, filter } from 'rxjs/operators';
+
 import { Product } from '../product.interface';
 import { ProductService } from '../product.service';
 import { FavouriteService } from '../favourite.service';
-import { Observable, EMPTY } from 'rxjs';
-import { tap, catchError, startWith, count, flatMap } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
