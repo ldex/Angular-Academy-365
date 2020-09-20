@@ -18,6 +18,7 @@ export class ProductListComponent implements OnInit {
   title: string = 'Products';
   selectedProduct: Product;
   productsNb = 0;
+  products$: Observable<Product[]>;
   errorMessage;
 
   // Pagination
@@ -56,18 +57,19 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false
+    // Self url navigation will refresh the page ('Refresh List' button)
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
+    this.products$ = this
+                      .productService
+                      .products$
+                      .pipe(
+                        tap(products => this.productsNb = products.length)
+                      );
   }
 
   refresh() {
     this.productService.initProducts();
     this.router.navigateByUrl('/products');
-  }
-
-  products$ = this
-    .productService
-    .products$
-    .pipe(
-      tap(products => this.productsNb = products.length)
-    );
+  }  
 }
