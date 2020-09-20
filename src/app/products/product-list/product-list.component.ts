@@ -17,7 +17,6 @@ export class ProductListComponent implements OnInit {
 
   title: string = 'Products';
   selectedProduct: Product;
-  productsNb = 0;
   products$: Observable<Product[]>;
   errorMessage;
 
@@ -62,14 +61,11 @@ export class ProductListComponent implements OnInit {
 
     this.products$ = this
                       .productService
-                      .products$
-                      .pipe(
-                        tap(products => this.productsNb = products.length)
-                      );
+                      .products$;
   }
 
   refresh() {
     this.productService.initProducts();
-    this.router.navigateByUrl('/products');
+    this.router.navigateByUrl('/products'); // Self route navigation
   }  
 }
