@@ -1,6 +1,6 @@
-# Angular Academy Demo RxJS Start
+# Angular Academy RxJS Demo App
 
-Starter Project for the RxJS demo of <a href="https://angular.ac" target="_blank">Angular Academy</a>.
+Demo Project coded during the RxJS part of an <a href="https://angular.ac" target="_blank">Angular Academy Workshop</a>.
 
 [![Angular Academy](https://www.angularacademy.ca/images/classroom.jpg "Angular Academy")](https://www.angularacademy.ca)
 
@@ -35,3 +35,6 @@ Run `ng s -o --hmr` for a local dev server.
 
 The app is running on `http://localhost:4200/` and will automatically reload if you change/save any of the source files.
 
+## Try it live in Stackblitz without installation!
+
+<a href="https://stackblitz.com/github/ldex/Angular-Academy-299" target="_blank">Angular Demo App</a>
