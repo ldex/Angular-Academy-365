@@ -31,14 +31,15 @@ export class ProductInsertComponent implements OnInit {
     this
       .productService
       .insertProduct(newProduct)
-      .subscribe(
-        product => {
+      .subscribe({
+        next: (product) => {
           console.log('Product saved with id: ' + product.id);
           this.productService.initProducts();
           this.router.navigateByUrl('/products');
         },
-        error => console.log('Could not save product: ' + error)
-      )
+        error: (error) => console.log('Could not save product: ' + error)
+      }
+    )
   }
 
   ngOnInit() {
