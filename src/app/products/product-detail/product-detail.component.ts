@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs';
+import { filter, map, Observable, startWith, switchMap } from 'rxjs';
 
 import { Product } from '../product.interface';
 import { FavouriteService } from '../../services/favourite.service';
