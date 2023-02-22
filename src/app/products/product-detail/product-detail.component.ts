@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { map } from 'rxjs';
 
 import { Product } from '../product.interface';
-import { FavouriteService } from '../favourite.service';
-import { ProductService } from '../product.service';
+import { FavouriteService } from '../../services/favourite.service';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -24,6 +24,20 @@ export class ProductDetailComponent implements OnInit {
   newFavourite(product: Product) {
     this.favouriteService.addToFavourites(product);
     this.router.navigateByUrl('/products');
+  }
+
+  deleteProduct(id: number) {
+    this.productService
+        .deleteProduct(id)
+        .subscribe({
+           next: () => {
+                console.log('Product deleted.');
+                this.productService.resetList();
+                this.router.navigateByUrl("/products");
+            },
+           error: e => console.log('Could not delete product. ' + e.message)
+          }
+        );
   }
 
   ngOnInit(): void {

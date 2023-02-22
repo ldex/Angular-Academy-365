@@ -9,7 +9,7 @@
     other {{{favourites}} favourites}
     }
 </div>
-<div> 
+<div>
     <!-- Search: <input type="text" [formControl]="filter" placeholder="filter by name"> -->
     &nbsp;
 </div>
@@ -22,8 +22,7 @@
     <li *ngFor="let product of products | slice:start:end"
         (click)="onSelect(product)"
         [class.discontinued]="product.discontinued"
-        [class.selected]="selectedProduct === product"
-        [title]="product | json">
+        [class.selected]="selectedProduct === product">
         <span class="name">{{ product.name | uppercase }}</span>
         <span class="description">{{ product.description }}</span>
         <span class="price">{{ product.price | currency:'CAD':'symbol-narrow':'.2' }}</span>
@@ -31,7 +30,7 @@
 </ul>
 
 <div class="right">
-    <button (click)="refresh()">Refresh List</button>&nbsp;
+    <button (click)="reset()">Reset List</button>&nbsp;
     <a routerLink="insert">Add new product...</a>
 </div>
 

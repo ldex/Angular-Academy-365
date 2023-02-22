@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { catchError, delay, shareReplay, tap } from 'rxjs/operators';
-import { Product } from './product.interface';
+import { HttpClient } from '@angular/common/http';
+import { Observable, catchError, delay, shareReplay, tap } from 'rxjs';
+import { Product } from '../products/product.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +11,7 @@ export class ProductService {
   private baseUrl = 'https://storerestservice.azurewebsites.net/api/products/';
   products$: Observable<Product[]>;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.initProducts();
   }
 
@@ -34,6 +33,10 @@ export class ProductService {
   }
 
   deleteProduct(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + id);           
+    return this.http.delete(this.baseUrl + id);
+  }
+
+  resetList() {
+    this.initProducts();
   }
 }

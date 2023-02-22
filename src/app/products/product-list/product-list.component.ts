@@ -1,12 +1,11 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { Observable, EMPTY, combineLatest, Subscription } from 'rxjs';
-import { tap, catchError, startWith, count, flatMap, map, debounceTime, filter } from 'rxjs/operators';
+import { Observable, EMPTY, combineLatest, Subscription, tap, catchError, startWith, count, map, debounceTime, filter } from 'rxjs';
 
 import { Product } from '../product.interface';
-import { ProductService } from '../product.service';
-import { FavouriteService } from '../favourite.service';
+import { ProductService } from '../../services/product.service';
+import { FavouriteService } from '../../services/favourite.service';
 
 @Component({
   selector: 'app-product-list',
@@ -56,16 +55,19 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Self url navigation will refresh the page ('Refresh List' button)
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-
     this.products$ = this
                       .productService
                       .products$;
   }
 
-  refresh() {
-    this.productService.initProducts();
-    this.router.navigateByUrl('/products'); // Self route navigation
-  }  
+  reset() {
+    this.productService.resetList();
+    this.router.navigateByUrl('/products'); // self navigation to force data update
+  }
+
+  resetPagination() {
+    this.start = 0;
+    this.end = this.pageSize;
+    this.currentPage = 1;
+  }
 }

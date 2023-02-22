@@ -2,9 +2,8 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angula
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { ProductService } from '../product.service';
-import { fromEvent } from 'rxjs';
-import { exhaustMap } from 'rxjs/operators';
+import { ProductService } from '../../services/product.service';
+import { fromEvent, exhaustMap } from 'rxjs';
 
 @Component({
   selector: 'app-product-insert',
@@ -34,7 +33,7 @@ export class ProductInsertComponent implements OnInit {
       .subscribe({
         next: (product) => {
           console.log('Product saved with id: ' + product.id);
-          this.productService.initProducts();
+          this.productService.resetList();
           this.router.navigateByUrl('/products');
         },
         error: (error) => console.log('Could not save product: ' + error)
