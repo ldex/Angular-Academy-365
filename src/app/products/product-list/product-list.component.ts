@@ -19,6 +19,22 @@ export class ProductListComponent implements OnInit {
   products$: Observable<Product[]>;
   errorMessage;
 
+  constructor(
+    private productService: ProductService,
+    private favouriteService: FavouriteService,
+    private router: Router) {
+  }
+
+  ngOnInit(): void {
+    this.products$ = this
+                      .productService
+                      .products$;
+  }
+
+  get favourites(): number {
+    return this.favouriteService.getFavouritesNb();
+  }
+
   // Pagination
   pageSize = 5;
   start = 0;
@@ -42,22 +58,6 @@ export class ProductListComponent implements OnInit {
   onSelect(product: Product) {
     this.selectedProduct = product;
     this.router.navigateByUrl('/products/' + product.id);
-  }
-
-  get favourites(): number {
-    return this.favouriteService.getFavouritesNb();
-  }
-
-  constructor(
-    private productService: ProductService,
-    private favouriteService: FavouriteService,
-    private router: Router) {
-  }
-
-  ngOnInit(): void {
-    this.products$ = this
-                      .productService
-                      .products$;
   }
 
   reset() {
