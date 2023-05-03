@@ -148,6 +148,6 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular-demo-rxjs-start"
+    }
+  }
 }
