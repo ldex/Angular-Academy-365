@@ -23,11 +23,17 @@ export class ProductService {
       this
       .products$
       .pipe(
-        map(products => [...products].sort((p1, p2) => p1.price > p2.price ? -1 : 1)),
-        // [{p1}, {p2}, {p3}]
-        mergeAll(),
-        // {p1}, {p2}, {p3}
-        first()
+        filter(products => products.length > 0),
+        switchMap(
+          products => of(products)
+                      .pipe(
+                        map(products => [...products].sort((p1, p2) => p1.price > p2.price ? -1 : 1)),
+                        // [{p1}, {p2}, {p3}]
+                        mergeAll(),
+                        // {p1}, {p2}, {p3}
+                        first()
+                      )
+        )
       )
 
       // Another way:
