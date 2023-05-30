@@ -85,7 +85,7 @@ export class ProductListComponent implements OnInit {
 
   reset() {
     this.productService.resetList();
-    this.router.navigateByUrl('/products'); // self navigation to force data update
+    this.resetPagination();
   }
 
   resetPagination() {
